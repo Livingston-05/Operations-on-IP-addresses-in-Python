@@ -1,8 +1,9 @@
 import ipaddress
 from ipaddress import IPv4Network
+import math
+
 
 print("IP Address Validation Tool")
-
 
 def ipValidate(ip, subnet):
     # CHECK IF IP ADDRESS IS VALID
@@ -15,16 +16,11 @@ def ipValidate(ip, subnet):
                     break
     if flag == 0:
         print("IP address entered is valid!")
-    """                
-    # Check if IP is in subnet
-    if (ipaddress.ip_address(ip) in ipaddress.ip_network(subnet)):
-            print("IP is in subnet")
-    else:
-            print("IP is not in subnet")
-    """
+    
 
 def sizeOfBlock(ip, subnet):
         # Find size of block
+        global count 
         count = 0
         subnet_list = subnet.split(sep = ".")
         snet = ""
@@ -39,7 +35,8 @@ def sizeOfBlock(ip, subnet):
         for i in snet:
             if i == "1":
                 count = count+1
-
+        #Mask
+        print("Given mask is: ", count)
         # Subtract the number of 1's from 32 to get the number of 0's
         print("Number of addresses in the block: ", 2**(32-count))
 
@@ -62,39 +59,50 @@ def FirstandLast(ip, subnet):
     return first[:-1], last[:-1]
 
 
+def subnetting():
+    n=count
+    subnetaddr=""
+    print("Enter the number of subnets")
+    s=int(input())
+    if(s%2==0):
+        nsub=n+math.log(s,2)
+        nsub=int(nsub)
+        print("Number of subnets:",nsub)
+        for i in range(0,nsub):
+            subnetaddr=subnetaddr+"1"
+        for i in range(nsub,32):
+            subnetaddr=subnetaddr+"0"
+        
+        h=32-nsub
+        noOfhosts=(2**h)-2
+        print("Number of hosts:",noOfhosts)
 
+        subnetaddr=bin(int(subnetaddr,2)).replace("0b","")
+        subnetmask=""
+        subnetmask=str(int(subnetaddr[0:8],2))+"."+str(int(subnetaddr[8:16],2))+"."+str(int(subnetaddr[16:24],2))+"."+str(int(subnetaddr[24:32],2))
+        print("Subnet mask:",subnetmask)
+
+    else:
+        print("Invalid number of subnets")
+    
+
+
+
+        
 
 def main():
         # Defining variables
-        """
         ip = input("Enter IP address: ")
-        subnet = input("Enter subnet address with / mask: ")
-        # print(ip.split("."))
-        """
-        ip = "167.199.170.82"
-        subnet = "255.255.255.224"
-        
+        subnet = input("Enter subnet mask address: ")
+      
         ipValidate(ip, subnet)
         sizeOfBlock(ip, subnet)
         
         lst = FirstandLast(ip, subnet)
         print("First IP address: ", lst[0])
         print("Last IP address: ", lst[1])
+        subnetting()
 
-        # print(ipaddress.ip_address(ip))
-        # ip.split()
-        # n = IPv4Network(subnet)
-
-        # first, last = n[0], n[-1]
-        # print(first)
-        # print(last)
-        """
-        net4 = ipaddress.ip_network(subnet)
-        for x in net4.hosts():
-            print(x) 
-        """
         
-
-
 if __name__=="__main__":
     main()
