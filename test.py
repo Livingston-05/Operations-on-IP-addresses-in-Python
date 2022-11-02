@@ -5,17 +5,25 @@ import math
 
 print("IP Address Validation Tool")
 
-def ipValidate(ip, subnet):
+def ipValidate(ip):
     # CHECK IF IP ADDRESS IS VALID
     flag = 0
-    for x in ip.split("."):
-        # If the IP address is less than 0 or more than 255, it is invalid
-            if int(x) < 0 or int(x) > 255:
-                    print("IP address entered is invalid!")
-                    flag = 1
-                    exit()
+    ip_list = ip.split(sep = ".")
+    if len(ip_list) != 4:
+        print("Invalid IP address")
+        flag = 1
+        exit()
+    else:
+        for i in ip_list:
+            if int(i) < 0 or int(i) > 255:
+                print("Invalid IP address")
+                flag = 1
+                break
     if flag == 0:
-        print("IP address entered is valid!")
+        print("Valid IP address")
+    else:
+        exit()
+   
     
 
 def sizeOfBlock(ip, subnet):
@@ -67,7 +75,7 @@ def subnetting():
     if(s%2==0):
         nsub=n+math.log(s,2)
         nsub=int(nsub)
-        print("Number of subnets:",nsub)
+        print("Number of bits in netid",nsub)
         for i in range(0,nsub):
             subnetaddr=subnetaddr+"1"
         for i in range(nsub,32):
@@ -87,15 +95,13 @@ def subnetting():
     
 
 
-
-        
-
 def main():
         # Defining variables
         ip = input("Enter IP address: ")
+        ipValidate(ip)
         subnet = input("Enter subnet mask address: ")
       
-        ipValidate(ip, subnet)
+        # ipValidate(ip, subnet)
         sizeOfBlock(ip, subnet)
         
         lst = FirstandLast(ip, subnet)
