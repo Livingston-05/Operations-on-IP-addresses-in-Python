@@ -13,7 +13,7 @@ def ipValidate(ip, subnet):
             if int(x) < 0 or int(x) > 255:
                     print("IP address entered is invalid!")
                     flag = 1
-                    exit()
+                    break
     if flag == 0:
         print("IP address entered is valid!")
     
@@ -62,7 +62,7 @@ def FirstandLast(ip, subnet):
 def subnetting():
     n=count
     subnetaddr=""
-    print("Enter the number of subnets in power of 2")
+    print("Enter the number of subnets")
     s=int(input())
     if(s%2==0):
         nsub=n+math.log(s,2)
