@@ -4,7 +4,7 @@ import math
 
 
 print("IP Address Validation Tool")
-
+ 
 def ipValidate(ip):
     # CHECK IF IP ADDRESS IS VALID
     flag = 0
