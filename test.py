@@ -10,17 +10,17 @@ def ipValidate(ip):
     flag = 0
     ip_list = ip.split(sep = ".")
     if len(ip_list) != 4:
-        print("Invalid IP address")
+        print("Invalid address")
         flag = 1
         exit()
     else:
         for i in ip_list:
             if int(i) < 0 or int(i) > 255:
-                print("Invalid IP address")
+                print("Invalid address")
                 flag = 1
                 break
     if flag == 0:
-        print("Invalid address")
+        print("Valid address")
     else:
         exit()
    
