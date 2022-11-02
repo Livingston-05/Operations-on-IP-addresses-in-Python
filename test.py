@@ -20,7 +20,7 @@ def ipValidate(ip):
                 flag = 1
                 break
     if flag == 0:
-        print("Valid IP address")
+        print("Invalid address")
     else:
         exit()
    
@@ -100,8 +100,8 @@ def main():
         ip = input("Enter IP address: ")
         ipValidate(ip)
         subnet = input("Enter subnet mask address: ")
-      
-        # ipValidate(ip, subnet)
+        ipValidate(subnet)    
+       
         sizeOfBlock(ip, subnet)
         
         lst = FirstandLast(ip, subnet)
